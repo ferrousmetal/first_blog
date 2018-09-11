@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    {% if error_msg %}
+    <p>{{ error_msg }}</p>
+    {% endif %}
+    {% for post in post_list %}
+        <article class="post post-{{ post.pk }}">
+            <header class="entry-header">
+                <h1 class="entry-title">
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </h1>
+                <div class="entry-meta">
+                    <span class="post-category"><a href="#"><span class="icon ion-ios-paper-outline"></span>  {{ post.category.name }}丨</a></span>
+                    <span class="post-date"><a href="#"><time class="entry-date"
+                                                                          datetime="{{ post.created_time }}"><span class="icon ion-ios-clock-outline"></span>  {{ post.created_time }}丨</time></a></span>
+                    <span class="post-author"><a href="#"><span class="icon ion-android-person"></span>  {{ post.author }}丨</a></span>
+                    <span class="comments-link"><a href="#"><span class="icon ion-chatbox"></span>  {{ post.comments_set.count }}丨</a></span>
+                    <span class="views-count"><a href="{{ post.get_absolute_url }}"><span class="icon ion-eye"></span>  {{ post.views }}</a></span>
+                </div>
+            </header>
+            <div class="entry-content clearfix">
+                <p>{{ post.excerpt }}</p>
+                <div class="read-more cl-effect-14">
+                    <a href="{{ post.get_absolute_url }}" class="more-link">|👆详细阅读👆 |<span class="meta-nav"></span></a><hr>
+                </div>
+            </div>
+        </article>
+    {% empty %}
+        <div class="no-post">暂时还没有发布的文章！</div>
+    {% endfor %}
+
+    {#分页#}
+{#    <div class="pagination col-md-2">#}
+{#        <span class="step-links">#}
+{#            {% if posts.has_previous %}#}
+{#                <a href="?page=1">&laquo; 首页</a>#}
+{#                <a href="?page={{ posts.previous_page_number }}">上一页</a>#}
+{#            {% endif %}#}
+{##}
+{#            <span class="current">#}
+{#                Page {{ posts.number }} of {{ posts.paginator.num_pages }}#}
+{#            </span>#}
+{##}
+{#            {% if posts.has_next %}#}
+{#                <a href="?page={{ posts.next_page_number }}">下一页</a>#}
+{#                <a href="?page={{ posts.paginator.num_pages }}">末页 &raquo;</a>#}
+{#            {% endif %}#}
+{#        </span>#}
+{#    </div>#}
+
+    <nav aria-label="...">
+        <ul class="pager">
+            {% if post_list.has_previous %}
+                <li><a href="?page={{ post_list.previous_page_number }}">上一页丨</a></li>
+            {% endif %}
+            {% if post_list.has_previous or post_list.has_next %}
+            <li><a href="?page={{ post_list.number }}">第 {{ post_list.number }} 页</a></li>
+            {% endif %}
+            {% if post_list.has_next %}
+                <li><a href="?page={{ post_list.next_page_number }}">丨下一页</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+
+{% endblock main %}

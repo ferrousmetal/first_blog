@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <div>
+        <h1 class="page-title">关于我</h1>
+        <article class="post">
+            <div class="entry-content clearfix">
+                <figure class="img-responsive-center">
+                    <img class="img-responsive" src="{% static 'img/about.jpg' %}" alt="Developer Image">
+                </figure>
+                <p>
+                    <br>
+                    此项目完整代码托管在 <a href="https://github.com/iddlee/blog">GitHub：Blog</a> 中
+                </p><hr>
+                <p>
+                    此项目，是在基于"追梦人物的博客"教程，进行学习时所建项目，后将其进行改进，采用Django2.0，Python3.6
+                    进行建设，优化了部分后端代码，同时改进了模板。
+                </p><hr>
+            </div>
+        </article>
+    </div>
+
+
+{% endblock main %}
+
+
